@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Signup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gradient-to-r from-green-800 to-blue-400">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md transition-all duration-300">
+        <div id="loginForm" class="">
+            <h2 class="text-2xl font-bold text-center text-gray-700 mb-6">Login</h2>
+            <form action="/login" method="post">
+                <div class="mb-4">
+                    <label for="username" class="block text-gray-600">Username:</label>
+                    <input type="text" id="username" name="username" required class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="block text-gray-600">Password:</label>
+                    <input type="password" id="password" name="password" required class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-green-800 to-blue-400 hover:opacity-90 text-white py-2 rounded-lg font-semibold">Login</button>
+            </form>
+            <div class="text-center mt-4">
+                <a href="#" onclick="switchForm('signup')" class="text-green-500 hover:underline">Create an account</a>
+            </div>
+        </div>
+        <div id="signupForm" class="hidden">
+            <h2 class="text-2xl font-bold text-center text-gray-700 mb-6">Signup</h2>
+            <form action="/signup" method="post">
+                <div class="mb-4">
+                    <label for="newUsername" class="block text-gray-600">Username:</label>
+                    <input type="text" id="newUsername" name="username" required class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+                </div>
+                <div class="mb-4">
+                    <label for="newEmail" class="block text-gray-600">Email:</label>
+                    <input type="email" id="newEmail" name="email" required class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+                </div>
+                <div class="mb-4">
+                    <label for="newPassword" class="block text-gray-600">Password:</label>
+                    <input type="password" id="newPassword" name="password" required class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-green-800 to-blue-400 hover:opacity-90 text-white py-2 rounded-lg font-semibold">Signup</button>
+            </form>
+            <div class="text-center mt-4">
+                <a href="#" onclick="switchForm('login')" class="text-green-500 hover:underline">Already have an account?</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        function switchForm(formType) {
+            document.getElementById('loginForm').classList.toggle('hidden', formType !== 'login');
+            document.getElementById('signupForm').classList.toggle('hidden', formType !== 'signup');
+        }
+    </script>
+</body>
+</html>

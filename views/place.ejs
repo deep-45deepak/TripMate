@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="website icon" type="jpg" href="Tripmate.jpg">
+    <style>
+        /* Background video styling */
+#bg-video {
+    position: fixed; /* Stay fixed behind content */
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover; /* Cover the entire screen */
+    transform: translate(-50%, -50%);
+    z-index: -1; /* Push it behind other elements */
+}
+/* Content styling */
+.content {
+    position: relative;
+    z-index: 1;
+    color: white;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+    </style>
+
+</head>
+
+<body class="bg-blue-100">
+    <!-- Navbar -->
+    <%- include('components/header') %>
+    <!--main section  -->
+    <%- include('components/placeMain') %>
+    <video class="w-screen h-screen object-cover" id="bg-video" src="animation/animation.mp4" autoplay loop muted></video>
+    <!-- Footer -->
+    <%- include('components/footer') %>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Planner</title>
+
+    <link rel="website icon" type="jpg" href="Tripmate.jpg">
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- FontAwesome Icons -->
+    <script src="https://kit.fontawesome.com/YOUR-KIT-ID.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Lottie Animations -->
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+</head>
+
+<body class="bg-blue-100">
+
+    <!-- Navbar -->
+    <%- include('components/header') %>
+
+    <!-- Hero Section -->
+    <%- include('components/hero') %>
+
+    <!-- Pop up -->
+    <%- include('components/popup') %>
+
+    <!-- Form -->
+    <%- include('components/form') %>
+
+    <!-- Previous Trips -->
+    <%- include('components/previousTrip') %>
+
+    <!-- Footer -->
+    <%- include('components/footer') %>
+
+    <!-- JavaScript -->
+    <script src="/script/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!-- Header -->
+<header id="header"
+    class="bg-gradient-to-r from-teal-700 to-teal-500 text-white flex justify-between items-center p-2 bg-white shadow-md">
+    <div class="flex items-center gap-2 rounded-full">
+        <div class="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center">
+            <dotlottie-player src="https://lottie.host/5c00d0c5-c49f-41ab-89eb-786e898a5abd/t7DYQJlRv5.lottie"
+                background="transparent" speed="1" loop autoplay class="w-full h-full">
+            </dotlottie-player>
+        </div>
+        <span
+            class="font-bold text-lg bg-gradient-to-r from-teal-500 via-blue-400 to-pink-500 text-transparent bg-clip-text">TripMate</span>
+    </div>
+    <nav class="hidden md:flex gap-6 text-gray-700">
+        <% if (req.url.includes('/place')) { %>
+            <!-- Code to execute if the route contains '/place' -->
+            <a href="#" class="text-white hover:text-blue-300">Home</a>
+            <a href="#faq" class="text-white hover:text-blue-300">FAQs</a>
+            <a href="#contacts" class="text-white hover:text-blue-300">Contact</a>
+            <% } else { %>
+                <!-- Code to execute for other routes -->
+                <a href="#" class="text-white hover:text-blue-300">Home</a>
+                <a href="#form" class="text-white hover:text-blue-300">Get Recommendation</a>
+                <a href="#past_trips" class="text-white hover:text-blue-300"> Past Trips</a>
+                <% } %>
+    </nav>
+    <div class="flex gap-4 items-center">
+        <button class="p-2 rounded-full hover:bg-teal-400">
+            <i class="fas fa-search text-white"></i>
+        </button>
+        <a href="login" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Sign In</a>
+    </div>
+</header>
