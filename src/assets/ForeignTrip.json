@@ -1,0 +1,452 @@
+[
+  {
+    "id": 1,
+    "name": "Statue of Liberty",
+    "location": "New York City, USA",
+    "days": 1,
+    "price": 2500,
+    "rating": 4.8,
+    "image": "https://images.pexels.com/photos/356830/pexels-photo-356830.jpeg"
+  },
+  {
+    "id": 2,
+    "name": "Grand Canyon",
+    "location": "Arizona, USA",
+    "days": 3,
+    "price": 18000,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/679243/pexels-photo-679243.jpeg"
+  },
+  {
+    "id": 3,
+    "name": "Golden Gate Bridge",
+    "location": "San Francisco, USA",
+    "days": 1,
+    "price": 3500,
+    "rating": 4.7,
+    "image": "https://images.pexels.com/photos/208745/pexels-photo-208745.jpeg"
+  },
+  {
+    "id": 4,
+    "name": "Yosemite National Park",
+    "location": "California, USA",
+    "days": 4,
+    "price": 22000,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/572897/pexels-photo-572897.jpeg"
+  },
+  {
+    "id": 5,
+    "name": "Walt Disney World",
+    "location": "Orlando, USA",
+    "days": 5,
+    "price": 45000,
+    "rating": 4.6,
+    "image": "https://images.pexels.com/photos/258045/pexels-photo-258045.jpeg"
+  },
+  {
+    "id": 6,
+    "name": "Mount Rushmore",
+    "location": "South Dakota, USA",
+    "days": 2,
+    "price": 12000,
+    "rating": 4.5,
+    "image": "https://images.pexels.com/photos/534297/pexels-photo-534297.jpeg"
+  },
+  {
+    "id": 7,
+    "name": "Yellowstone National Park",
+    "location": "Wyoming, USA",
+    "days": 5,
+    "price": 28000,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg"
+  },
+  {
+    "id": 8,
+    "name": "Las Vegas Strip",
+    "location": "Nevada, USA",
+    "days": 3,
+    "price": 35000,
+    "rating": 4.7,
+    "image": "https://images.pexels.com/photos/1576937/pexels-photo-1576937.jpeg"
+  },
+  {
+    "id": 9,
+    "name": "Niagara Falls",
+    "location": "New York, USA",
+    "days": 2,
+    "price": 15000,
+    "rating": 4.8,
+    "image": "https://images.pexels.com/photos/1659437/pexels-photo-1659437.jpeg"
+  },
+  {
+    "id": 10,
+    "name": "French Quarter",
+    "location": "New Orleans, USA",
+    "days": 3,
+    "price": 18000,
+    "rating": 4.6,
+    "image": "https://images.pexels.com/photos/442579/pexels-photo-442579.jpeg"
+  },
+  {
+    "id": 11,
+    "name": "Waikiki Beach",
+    "location": "Hawaii, USA",
+    "days": 7,
+    "price": 65000,
+    "rating": 4.8,
+    "image": "https://images.pexels.com/photos/1028225/pexels-photo-1028225.jpeg"
+  },
+  {
+    "id": 12,
+    "name": "Alcatraz Island",
+    "location": "California, USA",
+    "days": 1,
+    "price": 5000,
+    "rating": 4.5,
+    "image": "https://images.pexels.com/photos/2082949/pexels-photo-2082949.jpeg"
+  },
+  {
+    "id": 13,
+    "name": "Kennedy Space Center",
+    "location": "Florida, USA",
+    "days": 2,
+    "price": 12000,
+    "rating": 4.7,
+    "image": "https://images.pexels.com/photos/586031/pexels-photo-586031.jpeg"
+  },
+  {
+    "id": 14,
+    "name": "Great Smoky Mountains",
+    "location": "Tennessee, USA",
+    "days": 4,
+    "price": 20000,
+    "rating": 4.8,
+    "image": "https://images.pexels.com/photos/15286/pexels-photo.jpg"
+  },
+  {
+    "id": 15,
+    "name": "Times Square",
+    "location": "New York, USA",
+    "days": 1,
+    "price": 3000,
+    "rating": 4.6,
+    "image": "https://images.pexels.com/photos/258447/pexels-photo-258447.jpeg"
+  },
+  {
+    "id": 16,
+    "name": "Denali National Park",
+    "location": "Alaska, USA",
+    "days": 7,
+    "price": 55000,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/688660/pexels-photo-688660.jpeg"
+  },
+  {
+    "id": 17,
+    "name": "Savannah Historic District",
+    "location": "Georgia, USA",
+    "days": 3,
+    "price": 18000,
+    "rating": 4.6,
+    "image": "https://images.pexels.com/photos/53433/savannah-street-historic-architecture-53433.jpeg"
+  },
+  {
+    "id": 18,
+    "name": "Mall of America",
+    "location": "Minnesota, USA",
+    "days": 2,
+    "price": 15000,
+    "rating": 4.4,
+    "image": "https://images.pexels.com/photos/3965557/pexels-photo-3965557.jpeg"
+  },
+  {
+    "id": 19,
+    "name": "Bryce Canyon",
+    "location": "Utah, USA",
+    "days": 3,
+    "price": 20000,
+    "rating": 4.8,
+    "image": "https://images.pexels.com/photos/450062/pexels-photo-450062.jpeg"
+  },
+  {
+    "id": 20,
+    "name": "Mount Rainier",
+    "location": "Washington, USA",
+    "days": 4,
+    "price": 22000,
+    "rating": 4.7,
+    "image": "https://images.pexels.com/photos/618833/pexels-photo-618833.jpeg"
+  },
+  {
+    "id": 21,
+    "name": "Sedona Red Rocks",
+    "location": "Arizona, USA",
+    "days": 3,
+    "price": 18000,
+    "rating": 4.8,
+    "image": "https://images.pexels.com/photos/618848/pexels-photo-618848.jpeg"
+  },
+  {
+    "id": 22,
+    "name": "Boston Common",
+    "location": "Massachusetts, USA",
+    "days": 2,
+    "price": 12000,
+    "rating": 4.5,
+    "image": "https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg"
+  },
+  {
+    "id": 23,
+    "name": "Mackinac Island",
+    "location": "Michigan, USA",
+    "days": 3,
+    "price": 20000,
+    "rating": 4.7,
+    "image": "https://images.pexels.com/photos/2832034/pexels-photo-2832034.jpeg"
+  },
+  {
+    "id": 24,
+    "name": "Carlsbad Caverns",
+    "location": "New Mexico, USA",
+    "days": 2,
+    "price": 15000,
+    "rating": 4.6,
+    "image": "https://images.pexels.com/photos/799443/pexels-photo-799443.jpeg"
+  },
+  {
+    "id": 25,
+    "name": "Acadia National Park",
+    "location": "Maine, USA",
+    "days": 4,
+    "price": 25000,
+    "rating": 4.8,
+    "image": "https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg"
+  },
+  {
+    "id": 26,
+    "name": "Eiffel Tower",
+    "location": "Paris, France",
+    "days": 2,
+    "price": 30000,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/338515/pexels-photo-338515.jpeg"
+  },
+  {
+    "id": 27,
+    "name": "Great Wall of China",
+    "location": "China",
+    "days": 5,
+    "price": 45000,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/2377645/pexels-photo-2377645.jpeg"
+  },
+  {
+    "id": 28,
+    "name": "Colosseum",
+    "location": "Rome, Italy",
+    "days": 2,
+    "price": 28000,
+    "rating": 4.8,
+    "image": "https://images.pexels.com/photos/161039/keyboard-typing-technology-computer-161039.jpeg"
+  },
+  {
+    "id": 29,
+    "name": "Machu Picchu",
+    "location": "Peru",
+    "days": 7,
+    "price": 60000,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/3573382/pexels-photo-3573382.jpeg"
+  },
+  {
+    "id": 30,
+    "name": "Taj Mahal",
+    "location": "Agra, India",
+    "days": 3,
+    "price": 20000,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/1603650/pexels-photo-1603650.jpeg"
+  },
+  {
+    "id": 31,
+    "name": "Pyramids of Giza",
+    "location": "Egypt",
+    "days": 4,
+    "price": 35000,
+    "rating": 4.8,
+    "image": "https://images.pexels.com/photos/71241/pexels-photo-71241.jpeg"
+  },
+  {
+    "id": 32,
+    "name": "Santorini",
+    "location": "Greece",
+    "days": 5,
+    "price": 55000,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/1028225/pexels-photo-1028225.jpeg"
+  },
+  {
+    "id": 33,
+    "name": "Sydney Opera House",
+    "location": "Australia",
+    "days": 2,
+    "price": 35000,
+    "rating": 4.7,
+    "image": "https://images.pexels.com/photos/274910/pexels-photo-274910.jpeg"
+  },
+  {
+    "id": 34,
+    "name": "Christ the Redeemer",
+    "location": "Rio de Janeiro, Brazil",
+    "days": 3,
+    "price": 40000,
+    "rating": 4.8,
+    "image": "https://images.pexels.com/photos/712618/pexels-photo-712618.jpeg"
+  },
+  {
+    "id": 35,
+    "name": "Petra",
+    "location": "Jordan",
+    "days": 5,
+    "price": 45000,
+    "rating": 4.8,
+    "image": "https://images.pexels.com/photos/2422461/pexels-photo-2422461.jpeg"
+  },
+  {
+    "id": 36,
+    "name": "Angkor Wat",
+    "location": "Cambodia",
+    "days": 4,
+    "price": 38000,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/672630/pexels-photo-672630.jpeg"
+  },
+  {
+    "id": 37,
+    "name": "Stonehenge",
+    "location": "United Kingdom",
+    "days": 2,
+    "price": 25000,
+    "rating": 4.6,
+    "image": "https://images.pexels.com/photos/2363/france-landmark-lights-night.jpg"
+  },
+  {
+    "id": 38,
+    "name": "Banff National Park",
+    "location": "Canada",
+    "days": 6,
+    "price": 50000,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg"
+  },
+  {
+    "id": 39,
+    "name": "Northern Lights",
+    "location": "Iceland",
+    "days": 7,
+    "price": 75000,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/912110/pexels-photo-912110.jpeg"
+  },
+  {
+    "id": 40,
+    "name": "Victoria Falls",
+    "location": "Zambia/Zimbabwe",
+    "days": 5,
+    "price": 60000,
+    "rating": 4.8,
+    "image": "https://images.pexels.com/photos/457882/pexels-photo-457882.jpeg"
+  },
+  {
+    "id": 41,
+    "name": "Dubai Burj Khalifa",
+    "location": "UAE",
+    "days": 4,
+    "price": 65000,
+    "rating": 4.7,
+    "image": "https://images.pexels.com/photos/593172/pexels-photo-593172.jpeg"
+  },
+  {
+    "id": 42,
+    "name": "Bali",
+    "location": "Indonesia",
+    "days": 7,
+    "price": 50000,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/1483053/pexels-photo-1483053.jpeg"
+  },
+  {
+    "id": 43,
+    "name": "Venice Canals",
+    "location": "Italy",
+    "days": 3,
+    "price": 45000,
+    "rating": 4.8,
+    "image": "https://images.pexels.com/photos/724532/pexels-photo-724532.jpeg"
+  },
+  {
+    "id": 44,
+    "name": "Great Barrier Reef",
+    "location": "Australia",
+    "days": 5,
+    "price": 55000,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/847393/pexels-photo-847393.jpeg"
+  },
+  {
+    "id": 45,
+    "name": "Cappadocia",
+    "location": "Turkey",
+    "days": 4,
+    "price": 40000,
+    "rating": 4.8,
+    "image": "https://images.pexels.com/photos/572897/pexels-photo-572897.jpeg"
+  },
+  {
+    "id": 46,
+    "name": "Amalfi Coast",
+    "location": "Italy",
+    "days": 5,
+    "price": 60000,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/1797161/pexels-photo-1797161.jpeg"
+  },
+  {
+    "id": 47,
+    "name": "Matterhorn",
+    "location": "Switzerland",
+    "days": 4,
+    "price": 55000,
+    "rating": 4.8,
+    "image": "https://images.pexels.com/photos/618833/pexels-photo-618833.jpeg"
+  },
+  {
+    "id": 48,
+    "name": "Patagonia",
+    "location": "Argentina/Chile",
+    "days": 10,
+    "price": 90000,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg"
+  },
+  {
+    "id": 49,
+    "name": "Bora Bora",
+    "location": "French Polynesia",
+    "days": 7,
+    "price": 120000,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/753626/pexels-photo-753626.jpeg"
+  },
+  {
+    "id": 50,
+    "name": "Jeju Island",
+    "location": "South Korea",
+    "days": 5,
+    "price": 45000,
+    "rating": 4.7,
+    "image": "https://images.pexels.com/photos/208745/pexels-photo-208745.jpeg"
+  }
+]

@@ -24,7 +24,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative h-screen md:h-[500px] w-auto overflow-hidden flex items-center justify-center rounded-xl m-2">
+    <section className="relative h-96 md:h-[500px] w-auto overflow-hidden flex items-center justify-center rounded-xl m-2">
       {/* Background Image Slider */}
       {images.map((img, index) => (
         <div
@@ -42,13 +42,10 @@ const HeroSection = () => {
       {/* Text content (appears over every image) */}
       <div className="relative text-center text-white px-4 z-10">
         <h1 className="text-4xl md:text-6xl font-bold">Personalized Trip Recommendations</h1>
-        <button
-         onClick={() => setIsModalOpen(true)}
-          id="showTrips"
-          className="mt-4 text-blue-500 px-6 py-3 rounded-lg font-semibold shadow-lg"
-        >
-          <Popup />
-        </button>
+      
+  <div className='m-4'>
+  <Popup />
+  </div>
       </div>
     </section>
   );

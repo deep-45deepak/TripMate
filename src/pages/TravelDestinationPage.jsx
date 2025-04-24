@@ -1,56 +1,15 @@
 import React from "react";
-import Footer from '../components/Footer'
+import SuggestionHeader from '../components/Suggestion.header'
+import SelectedCard from '../components/SelectedCard'
+import TopDestination from '../components/TopDestination'
 import WeatherForecast from "../components/WeatherForecast";
 
 const TravelDestinationPage = () => {
   return (
-    <div className="bg-mintcream text-gray-800">
-      <header className="p-2 md:px-10">
-        <nav className="container mx-auto flex justify-between items-center">
-          <div className="font-bold bg-gradient-to-r from-teal-500 via-blue-400 to-pink-500 text-transparent bg-clip-text text-2xl">
-            TripMate
-          </div>
-          <ul className="w-auto space-x-6 text-xl hidden md:flex">
-            <li><a href="/" className="hover:text-blue-500">Home</a></li>
-            <li><a href="#Destination" className="hover:text-blue-400">Top Destinations</a></li>
-            <li><a href="#Contact" className="hover:text-blue-500">Contact</a></li>
-          </ul>
-          <a href="/login" className="bg-red-600 text-white px-4 py-2 rounded-lg active:bg-green-700">Log Out</a>
-        </nav>
-      </header>
+    <div className="bg-mintcream text-gray-800 text-center">
 
-      <section
-        className="hero text-center py-20 bg-cover bg-center text-white"
-        style={{ backgroundImage: "url('https://source.unsplash.com/1600x900/?travel')" }}
-      >
-        <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500 text-4xl font-bold">
-          Millions Of Experiences. <br /> One Simple Search.
-        </h1>
-        <p className="text-lg mt-4 text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500 text-4xl font-bold">Find and book your next happy adventure anywhere.</p>
-        <div className="mt-6 flex justify-center">
-          <input
-            type="text"
-            placeholder="Search destinations..."
-            className="px-4 py-2 w-1/2 rounded-full mr-4 border-none outline-none text-black"
-          />
-          <button className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700">Search</button>
-        </div>
-      </section>
-
-      <section className="features grid grid-cols-1 md:grid-cols-4 gap-6 p-10 text-center">
-        <div className="p-4 bg-green-500 shadow-lg rounded-lg text-white">
-          <h3 className="font-semibold">Discover Breathtaking Locations</h3>
-        </div>
-        <div className="p-4 bg-blue-500 shadow-lg rounded-lg text-white">
-          <h3 className="font-semibold">Enjoy deals & delights</h3>
-        </div>
-        <div className="p-4 bg-purple-500 shadow-lg rounded-lg text-white">
-          <h3 className="font-semibold">Exploring made easy</h3>
-        </div>
-        <div className="p-4 bg-red-600 shadow-lg rounded-lg text-white">
-          <h3 className="font-semibold">Travel your way</h3>
-        </div>
-      </section>
+      {/* Header */}
+      <SuggestionHeader />
 
       <section className="bg-mintcream px-4 py-8 md:py-12">
         <div className="max-w-7xl mx-auto">
@@ -59,17 +18,25 @@ const TravelDestinationPage = () => {
             <p className="text-lg md:text-2xl text-gray-700 mt-3 text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500 text-4xl font-bold">5-Day Weather, Currency & Health Report</p>
           </header>
 
+
+          {/* SelectedCard */}
+          <div className="flex justify-center items-center mx-4 md:mx-64 md:mb-8 my-6 w-auto rounded-2xl bg-gradient-to-r from-mint-cream to-white shadow-xl py-6 px-4 min-h-[300px] transition-all duration-300 hover:scale-[1.01]">
+            <SelectedCard />
+          </div>
+
+
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="flex flex-col gap-6 lg:col-span-2">
-              <section className="bg-white rounded-2xl shadow-2xl p-6">
-                <h2 className="text-2xl font-semibold text-center mb-4">Nearby Health Facilities</h2>
+              <section className="bg-teal-50 rounded-2xl shadow-2xl p-6">
+                <h2 className="text-2xl font-semibold text-center mb-4 text-blue-500">Nearby Health Facilities</h2>
                 <ul className="space-y-3 max-h-64 overflow-y-auto pr-2">
-                  <li className="bg-red-100 hover:bg-red-200 transition p-3 rounded-lg text-gray-800 shadow-sm">🏥 Bali International Medical Center</li>
-                  <li className="bg-red-200 hover:bg-red-300 transition p-3 rounded-lg text-gray-800 shadow-sm">🏥 Bangkok Hospital</li>
-                  <li className="bg-red-300 hover:bg-red-400 transition p-3 rounded-lg text-gray-900 shadow-sm">🏥 Cancún Medical Center</li>
-                  <li className="bg-red-400 hover:bg-red-500 transition p-3 rounded-lg text-white shadow-sm">🏥 Nha Trang City Hospital</li>
+                  <li className="bg-teal-100 hover:bg-teal-200 transition p-3 rounded-lg text-gray-800 shadow-sm">🏥 Bali International Medical Center</li>
+                  <li className="bg-teal-200 hover:bg-teal-300 transition p-3 rounded-lg text-gray-800 shadow-sm">🏥 Bangkok Hospital</li>
+                  <li className="bg-blue-100 hover:bg-blue-200 transition p-3 rounded-lg text-gray-800 shadow-sm">🏥 Cancún Medical Center</li>
+                  <li className="bg-blue-200 hover:bg-blue-300 transition p-3 rounded-lg text-gray-900 shadow-sm">🏥 Nha Trang City Hospital</li>
                 </ul>
               </section>
+
 
               <div className="grid md:grid-cols-2 gap-6">
                 <section className="bg-white rounded-2xl shadow-xl p-6">
@@ -127,35 +94,18 @@ const TravelDestinationPage = () => {
               </div>
             </div>
 
-          <WeatherForecast />
+            <WeatherForecast />
 
           </div>
         </div>
       </section>
 
-      <section id="Destination" className="destinations text-center p-10 bg-mintcream">
-        <h2 className="text-3xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500 text-4xl font-bold">Top Destinations For Your Next Vacation</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {[
-            { name: "Bali", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e" },
-            { name: "Bangkok", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/33/f9/07/sicily.jpg?w=500&h=400&s=1" },
-            { name: "Cancún", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRpRdaXzzRmAwVbDBkDxzIo64nXLsQ9q5Plw&s" },
-            { name: "Nha Trang", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/15/6d/d6/paris.jpg?w=500&h=400&s=1" },
-          ].map(({ name, image }) => (
-            <div
-              key={name}
-              className="bg-cover bg-center h-40 rounded-lg text-white flex items-center justify-center text-xl font-semibold shadow-lg"
-              style={{ backgroundImage: `url('${image}')` }}
-            >
-              {name}
-            </div>
-          ))}
-        </div>
-      </section>
+      <TopDestination />
 
-      <div id="Contact">
-        <Footer />
-      </div>
+      {/* Footer */}
+      <footer className="bg-teal-900 py-6 mt-12 text-center text-white">
+        <p>Made with ❤️ for your next adventure! 🚀</p>
+      </footer>
     </div>
   );
 };

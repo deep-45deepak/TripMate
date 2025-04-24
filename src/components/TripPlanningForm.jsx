@@ -1,10 +1,14 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import Lotify from './Lotify'
+import Animation from './Lotify'
 
 const TripPlanningForm = () => {
   return (
     <div id="recommendation" className="w-auto ml-2 mr-2 mx-auto grid md:grid-cols-2 gap-6 bg-white shadow-lg rounded-xl p-6 animate-fadeIn md:mt-8 md:mb-10">
+      
+            {/* Left Section: Lottie Animation */}
+            <Animation />
+
       {/* Left Section */}
       <div className="md:order-2 md:border-l-2 border-gray-300 md:p-20">
         <div className="flex justify-between items-center m-5">
@@ -71,18 +75,17 @@ const TripPlanningForm = () => {
             </label>
           </div>
 
-          <button
+            <Link className="mt-5 w-full bg-teal-500 text-white py-3 px-26 rounded-md hover:bg-teal-600 transition duration-300 shadow-md" to="/suggest">
+            <button
             id="submit"
             type="submit"
-            className="mt-5 w-full bg-teal-500 text-white p-3 rounded-md hover:bg-teal-600 transition duration-300 shadow-md"
+            className="mt-5 w-full"
           >
-            <Link to="/recommendation">Get Recommendations</Link>
+            Get Recommendations
           </button>
+          </Link>
         </form>
       </div>
-
-      {/* Right Section: Lottie Animation */}
-      <Lotify />
     </div>
   );
 };
