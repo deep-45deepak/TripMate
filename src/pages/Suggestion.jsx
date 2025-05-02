@@ -12,7 +12,9 @@ const foreignTrips = ForeignTrip.sort(() => 0.5 - Math.random());
 const TripSuggestions = () => {
   const [selectedDomesticId, setSelectedDomesticId] = useState(null);
   const [selectedForeignId, setSelectedForeignId] = useState(null);
+  const [city, setCity] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  
 
   // Filter domesticTrips based on search term (case-insensitive match)
   const filteredDomesticTrips = domesticTrips.filter(trip =>
@@ -35,7 +37,6 @@ const TripSuggestions = () => {
 
       <section
         className="hero text-center py-20 bg-cover bg-center text-white"
-      // style={{ backgroundImage: "url('https://source.unsplash.com/1600x900/?travel')" }}
       >
         <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500 text-4xl font-bold">
           Millions Of Experiences. <br /> One Simple Search.
@@ -84,7 +85,10 @@ const TripSuggestions = () => {
               key={trip.id}
               className={`rounded-3xl overflow-hidden shadow-lg cursor-pointer transition-all duration-300 bg-gradient-to-r from-teal-600 to-blue-500 text-white p-6 ${selectedDomesticId === trip.id ? "ring-4 ring-indigo-500" : ""
                 }`}
-              onClick={() => setSelectedDomesticId(trip.id)}
+                onClick={() => {
+                  setSelectedDomesticId(trip.id);
+                  setCity(trip.location);
+                }}                
             >
               <div className="relative">
                 <img
@@ -128,8 +132,8 @@ const TripSuggestions = () => {
             {domesticTrips.find((t) => t.id === selectedDomesticId).name}
           </span>
           <Link
-              to={`/destination`}
-              // to={`/trip-details/${selectedForeignId}`}
+              // to={`/destination`}
+              to={`/trip-details/${selectedDomesticId}/${city}`}
               className="inline-block px-6 py-2 text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300 rounded-xl shadow-lg"
             >
               View Trip Details
@@ -152,7 +156,11 @@ const TripSuggestions = () => {
               key={trip.id}
               className={`rounded-3xl overflow-hidden shadow-lg cursor-pointer transition-all duration-300 bg-gradient-to-r from-teal-600 to-blue-500 text-white p-6 ${selectedForeignId === trip.id ? "ring-4 ring-indigo-500" : ""
                 }`}
-              onClick={() => setSelectedForeignId(trip.id)}
+                onClick={() => {
+                  setSelectedForeignId(trip.id);
+                  setCity(trip.location.split(",")[0].trim());
+                }}
+                
             >
               <div className="relative">
                 <img
@@ -169,7 +177,7 @@ const TripSuggestions = () => {
                 <h2 className="text-2xl font-semibold">{trip.name}</h2>
                 <div className="flex items-center gap-2">
                   <FaMapMarkerAlt className="text-red-400" />
-                  <span>{trip.location}</span>
+                  <span>{trip.location.split(",")[0].trim()}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="flex items-center gap-1">
@@ -198,8 +206,8 @@ const TripSuggestions = () => {
 
           <div className="mt-6">
             <Link
-              to={`/destination`}
-              // to={`/trip-details/${selectedForeignId}`}
+              // to={`/destination`}
+              to={`/trip-details/${selectedForeignId}/${city}`}
               className="inline-block px-6 py-2 text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300 rounded-xl shadow-lg"
             >
               View Trip Details

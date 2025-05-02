@@ -1,16 +1,33 @@
+import { useEffect, useState } from "react";
 import { FaMapMarkerAlt, FaStar, FaCalendarAlt, FaRupeeSign } from "react-icons/fa";
+import DomesticTrip from "../assets/DomesticTrip.json";
+import ForeignTrip from "../assets/ForeignTrip.json";
 
-const ManaliCard = () => {
-  const trip = {
-    id: 1,
-    name: "Manali Adventure",
-    location: "Himachal Pradesh",
-    days: 5,
-    price: 12000,
-    rating: 4.7,
-    image:
-      "https://images.pexels.com/photos/939715/pexels-photo-939715.jpeg?auto=compress&cs=tinysrgb&w=600",
-  };
+const SelectedCard = ({ selectedId }) => {
+  const [trip, setTrip] = useState(null);
+
+  useEffect(() => {
+    if (!selectedId) return;
+
+    const idStr = String(selectedId);
+    const isForeign = idStr.includes("F");
+    const trips = isForeign ? ForeignTrip : DomesticTrip;
+
+    const selectedTrip = trips.find((trip) => String(trip.id) === idStr);
+
+    if (selectedTrip) {
+      setTrip(selectedTrip);
+    }
+  }, [selectedId]);
+
+  // Optional fallback content
+  if (!trip) {
+    return (
+      <div className="max-w-sm p-6 rounded-3xl shadow-xl text-center bg-gray-100 text-gray-500">
+        <p>No trip selected</p>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-sm rounded-3xl overflow-hidden shadow-xl bg-gradient-to-r from-teal-500 to-blue-500 text-white p-6">
@@ -21,7 +38,7 @@ const ManaliCard = () => {
           className="h-48 w-full object-cover rounded-t-3xl"
         />
         <div className="absolute top-3 left-3 bg-black bg-opacity-50 text-white px-4 py-2 rounded-xl text-lg">
-          {trip.rating} <FaStar className="inline-block text-yellow-400" />
+          {trip.rating} <FaStar className="inline-block text-yellow-400 ml-1" />
         </div>
       </div>
 
@@ -44,4 +61,4 @@ const ManaliCard = () => {
   );
 };
 
-export default ManaliCard;
+export default SelectedCard;

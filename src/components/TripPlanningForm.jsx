@@ -30,7 +30,7 @@ const TripPlanningForm = () => {
             </label>
 
             <label className="block">
-              <span className="text-gray-700">Budget (USD)</span>
+              <span className="text-gray-700">Budget (INR)</span>
               <input
                 type="number"
                 id="budget"

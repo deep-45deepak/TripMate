@@ -16,7 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Login />} />
         <Route path="/suggest" element={<Suggestion />} />
-        <Route path="/destination" element={<Destination />} />
+        <Route path="/trip-details/:id/:location" element={<Destination />} />
         <Route path="*" element={<Error />} /> {/* This handles 404 errors */}
       </Routes>
     </Router>
