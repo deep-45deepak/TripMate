@@ -41,13 +41,13 @@ const Header = () => {
             <a href="#" className="text-white hover:text-blue-300 text-lg">Home</a>
             <a href="#form" className="text-blue-300 text-lg underline">Get Recommendation</a>
             <a href="#faq" className="text-white hover:text-blue-300">FAQs</a>
-            <a href="#contacts" className="text-white hover:text-blue-300">Contact</a>
+            <a href="/contacts" className="text-white hover:text-blue-300">Contact</a>
           </>
         ) : (
           <>
             <a href="#" className="text-blue-300 text-lg underline">Home</a>
             <a href="#recommendation" className="text-white hover:text-blue-300 text-lg">Get Recommendation</a>
-            <a href="#footer" className="text-white hover:text-blue-300 text-lg">Contact</a>
+            <a href="/contact" className="text-white hover:text-blue-300 text-lg">Contact</a>
           </>
         )}
       </nav>

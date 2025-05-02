@@ -7,7 +7,9 @@ import Home from './pages/Home';
 import Login from './pages/AuthForm';
 import Suggestion from './pages/Suggestion'
 import Destination from './pages/TravelDestinationPage';
+import ContactMe from "./components/Contact";
 import Error from './pages/NotFound';
+
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Login />} />
         <Route path="/suggest" element={<Suggestion />} />
+        <Route path="/contact" element={<ContactMe />} />
         <Route path="/trip-details/:id/:location" element={<Destination />} />
         <Route path="*" element={<Error />} /> {/* This handles 404 errors */}
       </Routes>
