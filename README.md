@@ -41,5 +41,5 @@ TripMate is an intelligent travel assistant web application that helps users pla
 
 1. **Clone the repository**  
    ```bash
-   git clone https://github.com/yourusername/tripmate.git
+   git clone https://github.com/deep-45deepak/tripmate.git
    cd tripmate
