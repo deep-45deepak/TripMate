@@ -1,12 +1,45 @@
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🌍 TripMate - Your Smart Travel Assistant
 
-Currently, two official plugins are available:
+TripMate is an intelligent travel assistant web application that helps users plan personalized trips based on their preferences, budget, health conditions, age, and duration. Whether you're traveling solo or with family, domestically or internationally, TripMate recommends the best destinations and ensures a safe, enjoyable experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 🧠 **Personalized Trip Recommendations**  
+  Based on user's preferences, health, age, and budget.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 📍 **Domestic & International Destinations**  
+  Smart suggestions from around the globe.
+
+- 🌤️ **5-Day Weather Forecast**  
+  Detailed weather conditions for the destination.
+
+- 💱 **Currency Conversion**  
+  Real-time exchange rate calculations.
+
+- 🏥 **Nearby Health Facilities**  
+  Location-aware health support recommendations.
+
+- ✨ **Modern UI with Animations**  
+  Interactive, beautiful, and responsive design.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React.js, Tailwind CSS, JavaScript  
+- **Backend**: Node.js, Express.js  
+- **APIs**: OpenWeather API, Currency Exchange API, Google Places API  
+- **Database**: MongoDB (for storing user preferences, saved trips)  
+- **Authentication**: JWT / OAuth (optional)
+
+---
+
+## 📦 Installation
+
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/yourusername/tripmate.git
+   cd tripmate
