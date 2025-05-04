@@ -8,9 +8,9 @@ const Header = () => {
   // const recommendationRef = useRef(null);
   // const contactRef = useRef(null);
 
-  // const scrollToSection = (ref) => {
-  //   ref.current?.scrollIntoView({ behavior: 'smooth' });
-  // };
+  const scrollToSection = (ref) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const location = useLocation();
   const isPlaceRoute = location.pathname.includes("/place");
@@ -62,7 +62,7 @@ const Header = () => {
         <button id="search-btn" onClick={toggleSearch} className="p-2 rounded-full">
           <i className="fas fa-search text-white active:text-blue-400"></i>
         </button>
-        <a href="/login" className="bg-blue-500 text-white px-4 py-2 rounded-lg">
+        <a href="/signup" className="bg-blue-500 text-white px-4 py-2 rounded-lg">
           Sign In
         </a>
       </div>
