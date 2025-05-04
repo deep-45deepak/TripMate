@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import AuthForm from './pages/AuthForm';
 import Suggestion from './pages/Suggestion'
 import Destination from './pages/TravelDestinationPage';
-import ContactMe from "./components/Contact";
+import ContactMe from "./components/ContactMe";
 import Error from './pages/NotFound';
 
 function App() {

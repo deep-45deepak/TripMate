@@ -39,7 +39,7 @@ const ContactMe = () => {
                         <span>contact@travelmate.com</span>
                         </div>
                         <img
-                            src="../../public/app.png"
+                            src="../../public/App.png"
                             alt="Contact Us"
                             className="w-32 h-32 mt-4 mx-auto"
                         />
