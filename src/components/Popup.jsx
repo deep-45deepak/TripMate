@@ -58,7 +58,7 @@ const Popup = () => {
           onClick={(e) => e.target.id === "popup-modal" && setIsModalOpen(false)}
           className="fixed inset-0 bg-gradirnt from-blue-500 to-purple-500 backdrop-blur-sm flex justify-center items-center z-50 transition-opacity duration-300"
         >
-          <div className="bg-white/30 backdrop-blur-xl border border-white border-opacity-20 rounded-3xl p-6 md:p-10 max-w-lg w-full relative text-gray-900 shadow-2xl animate-fadeIn">
+          <div className="bg-white/70 backdrop-blur-xl border border-white border-opacity-20 rounded-3xl p-6 md:p-10 max-w-lg w-full relative text-gray-900 shadow-2xl animate-fadeIn">
             <h2 className="text-2xl font-bold mb-2">✨ Special Trip Offers</h2>
             <p className="text-sm mb-6 text-gray-800">Get exclusive deals on your next adventure.</p>
 

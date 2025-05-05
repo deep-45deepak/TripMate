@@ -8,14 +8,13 @@ import TripMapSection from "../components/TripMapSection";
 import HealthFacilities from "../components/HealthFacilities";
 
 const TravelDestinationPage = () => {
-
-  const [coordinates, setCoordinates ] = useState({}); //Faridabad coordinates
+  const [coordinates, setCoordinates ] = useState({});
   const { id, location: city } = useParams(); // alias 'location' to 'city'
   const tripId = id;
   const selectedCity = city.split(",")[0].trim();
 
-  console.log("City:", selectedCity);
-  console.log("Trip ID:", tripId);
+  // console.log("City:", selectedCity);
+  // console.log("Trip ID:", tripId);
 
   async function getCoordinatesByCity(cityName) {
     const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}`;
@@ -49,6 +48,7 @@ const TravelDestinationPage = () => {
       fetchCoordinates();
     }
   }, [selectedCity]);
+
   return (
     <div className="min-h-screen">
       {/* Header */}
@@ -74,8 +74,91 @@ const TravelDestinationPage = () => {
       {/* Main Dashboard - Prioritized Grid Layout */}
       <main className="max-w-7xl mx-auto px-4 -mt-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-16">
-          {/* ----- Left Column (Primary Travel Info) ----- */}
-          <div className="lg:col-span-8 space-y-6">
+          {/* ----- Left Column (Trip Planning) ----- */}
+          <div className="lg:col-span-4 space-y-6 order-2 lg:order-1">
+            {/* Trip Packages - Primary CTA */}
+            <div className="bg-white rounded-xl shadow-md p-6 sticky top-6">
+              <h2 className="text-2xl font-bold mb-6 flex items-center">
+                <svg className="w-6 h-6 text-teal-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                </svg>
+                Plan Your Trip
+              </h2>
+              
+              <div className="space-y-4 mb-6">
+                {[
+                  { name: "Budget", price: 120, features: ["Hostels", "Public transport", "Free walking tours"] },
+                  { name: "Comfort", price: 350, features: ["3-star hotels", "Guided tours", "Some meals included"] },
+                  { name: "Luxury", price: 890, features: ["5-star hotels", "Private transfers", "All meals & activities"] }
+                ].map((plan, index) => (
+                  <div key={index} className={`border rounded-lg p-4 transition-all ${
+                    index === 1 
+                      ? "border-teal-300 bg-teal-50 scale-[1.02] shadow-sm" 
+                      : "border-gray-200 hover:border-teal-200"
+                  }`}>
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="font-bold text-lg">{plan.name}</h3>
+                      <span className="font-bold text-teal-600">Rs{plan.price}</span>
+                    </div>
+                    <ul className="text-sm text-gray-600 space-y-1 mb-3">
+                      {plan.features.map((feature, i) => (
+                        <li key={i} className="flex items-start">
+                          <svg className="w-4 h-4 text-teal-500 mr-1 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                          </svg>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                    <button className={`w-full py-2 rounded-md text-sm font-medium ${
+                      index === 1 
+                        ? "bg-teal-600 text-white hover:bg-teal-700" 
+                        : "text-teal-600 border border-teal-600 hover:bg-teal-50"
+                    }`}>
+                      {index === 1 ? "Recommended" : "Select Plan"}
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              <button className="w-full bg-gradient-to-r from-teal-500 to-blue-500 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-all shadow-md">
+                Customize Your Package
+              </button>
+            </div>
+
+            {/* Travel Tips - Secondary helpful info */}
+            <div className="bg-white rounded-xl shadow-md p-6">
+              <h2 className="text-2xl font-bold mb-4 flex items-center">
+                <svg className="w-6 h-6 text-teal-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Local Tips
+              </h2>
+              <div className="space-y-3">
+                <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
+                  <h3 className="font-bold text-blue-800 flex items-center">
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Best Time to Visit
+                  </h3>
+                  <p className="text-sm text-gray-700 mt-1">November to March for pleasant weather</p>
+                </div>
+                <div className="p-3 bg-yellow-50 rounded-lg border border-yellow-100">
+                  <h3 className="font-bold text-yellow-800 flex items-center">
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+                    Must-Try Food
+                  </h3>
+                  <p className="text-sm text-gray-700 mt-1">Butter Chicken, Chole Bhature, Street Chaat</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ----- Right Column (Primary Travel Info) ----- */}
+          <div className="lg:col-span-8 space-y-6 order-1 order-2">
             {/* Row 1: Immediate Needs (Weather + Alerts) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Weather Card - Top priority for travelers */}
@@ -163,94 +246,11 @@ const TravelDestinationPage = () => {
               <TripMapSection coor={coordinates} />
             </div>
           </div>
-
-          {/* ----- Right Column (Trip Planning) ----- */}
-          <div className="lg:col-span-4 space-y-6">
-            {/* Trip Packages - Primary CTA */}
-            <div className="bg-white rounded-xl shadow-md p-6 sticky top-6">
-              <h2 className="text-2xl font-bold mb-6 flex items-center">
-                <svg className="w-6 h-6 text-teal-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                </svg>
-                Plan Your Trip
-              </h2>
-              
-              <div className="space-y-4 mb-6">
-                {[
-                  { name: "Budget", price: 120, features: ["Hostels", "Public transport", "Free walking tours"] },
-                  { name: "Comfort", price: 350, features: ["3-star hotels", "Guided tours", "Some meals included"] },
-                  { name: "Luxury", price: 890, features: ["5-star hotels", "Private transfers", "All meals & activities"] }
-                ].map((plan, index) => (
-                  <div key={index} className={`border rounded-lg p-4 transition-all ${
-                    index === 1 
-                      ? "border-teal-300 bg-teal-50 scale-[1.02] shadow-sm" 
-                      : "border-gray-200 hover:border-teal-200"
-                  }`}>
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-bold text-lg">{plan.name}</h3>
-                      <span className="font-bold text-teal-600">${plan.price}</span>
-                    </div>
-                    <ul className="text-sm text-gray-600 space-y-1 mb-3">
-                      {plan.features.map((feature, i) => (
-                        <li key={i} className="flex items-start">
-                          <svg className="w-4 h-4 text-teal-500 mr-1 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                          </svg>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                    <button className={`w-full py-2 rounded-md text-sm font-medium ${
-                      index === 1 
-                        ? "bg-teal-600 text-white hover:bg-teal-700" 
-                        : "text-teal-600 border border-teal-600 hover:bg-teal-50"
-                    }`}>
-                      {index === 1 ? "Recommended" : "Select Plan"}
-                    </button>
-                  </div>
-                ))}
-              </div>
-
-              <button className="w-full bg-gradient-to-r from-teal-500 to-blue-500 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-all shadow-md">
-                Customize Your Package
-              </button>
-            </div>
-
-            {/* Travel Tips - Secondary helpful info */}
-            <div className="bg-white rounded-xl shadow-md p-6">
-              <h2 className="text-2xl font-bold mb-4 flex items-center">
-                <svg className="w-6 h-6 text-teal-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                Local Tips
-              </h2>
-              <div className="space-y-3">
-                <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
-                  <h3 className="font-bold text-blue-800 flex items-center">
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    Best Time to Visit
-                  </h3>
-                  <p className="text-sm text-gray-700 mt-1">November to March for pleasant weather</p>
-                </div>
-                <div className="p-3 bg-yellow-50 rounded-lg border border-yellow-100">
-                  <h3 className="font-bold text-yellow-800 flex items-center">
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                    </svg>
-                    Must-Try Food
-                  </h3>
-                  <p className="text-sm text-gray-700 mt-1">Butter Chicken, Chole Bhature, Street Chaat</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Top Destinations - At bottom as discovery section */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-center mb-8">Recommended Nearby Destinations</h2>
+          <h2 className="text-3xl font-bold text-center mb-8 text-teal-500">Recommended Nearby Destinations</h2>
           <TopDestination />
         </section>
       </main>
