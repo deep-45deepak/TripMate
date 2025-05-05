@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import {
   FaMapMarkerAlt,
@@ -14,25 +14,41 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import TopDestination from '../components/TopDestination';
 import SuggestionHeader from '../components/Suggestion.header';
-import DomesticTrip from '../assets/DomesticTrip.json';
-import ForeignTrip from '../assets/ForeignTrip.json';
+import axios from 'axios';
 
 const TripSuggestions = () => {
-
   const navigate = useNavigate();
-  
+
   // State management
   const [selectedDomesticId, setSelectedDomesticId] = useState(null);
   const [selectedForeignId, setSelectedForeignId] = useState(null);
   const [city, setCity] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("domestic");
+  const [domesticTrips, setDomesticTrips] = useState([]);
+  const [foreignTrips, setForeignTrips] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Memoized trips data with random sorting
-  const [domesticTrips, foreignTrips] = useMemo(() => [
-    [...DomesticTrip].sort(() => 0.5 - Math.random()),
-    [...ForeignTrip].sort(() => 0.5 - Math.random())
-  ], []);
+  // Fetch trips data
+  useEffect(() => {
+    const fetchTrips = async () => {
+      try {
+        setLoading(true);
+        const domesticResponse = await axios.get('/preferences/domestic-trip');
+        const foreignResponse = await axios.get('/preferences/foreign-trip');
+
+        // console.log(domesticResponse.data)
+        setDomesticTrips(domesticResponse.data.sort(() => 0.5 - Math.random()));
+        setForeignTrips(foreignResponse.data.sort(() => 0.5 - Math.random()));
+      } catch (error) {
+        console.error('Error fetching trips:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTrips();
+  }, []);
 
   // Filter trips based on search term
   const filteredTrips = useMemo(() => {
@@ -76,6 +92,17 @@ const TripSuggestions = () => {
       transition: { duration: 0.5 }
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <div className="text-2xl font-semibold text-gray-700 animate-pulse">Loading trips...</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -192,7 +219,7 @@ const TripSuggestions = () => {
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence>
             {filteredTrips.length > 0 ? (
-              filteredTrips.slice(0, 3).map((trip) => (
+              filteredTrips.slice(0, 6).map((trip) => (
                 <motion.div
                   key={trip.id}
                   layout
@@ -202,8 +229,8 @@ const TripSuggestions = () => {
                   variants={cardVariants}
                   whileHover={{ y: -5 }}
                   className={`rounded-xl overflow-hidden shadow-lg cursor-pointer transition-all duration-300 bg-white ${(activeTab === "domestic" ? selectedDomesticId === trip.id : selectedForeignId === trip.id)
-                      ? "ring-4 ring-blue-500"
-                      : ""
+                    ? "ring-4 ring-blue-500"
+                    : ""
                     }`}
                   onClick={() => {
                     const city = activeTab === "domestic" ? trip.location : trip.location.split(",")[0].trim();
@@ -260,18 +287,20 @@ const TripSuggestions = () => {
         </div>
       </section>
 
-        {/* Top Destinations */}
-        <TopDestination />
+      {/* Top Destinations */}
+      <TopDestination />
 
-        {/* Footer */}
-        <footer className="bg-gradient-to-r from-blue-900 to-teal-800 py-10 mt-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-            <p className="text-lg mb-2">Made with ❤️ for your next adventure!</p>
-            <p className="text-blue-200">© {new Date().getFullYear()} Travel Explorer. All rights reserved.</p>
-          </div>
-        </footer>
+      {/* Footer */}
+      <footer className="bg-gradient-to-r from-blue-900 to-teal-800 py-10 mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+          <p className="text-lg mb-2">Made with ❤️ for your next adventure!</p>
+          <p className="text-blue-200">© {new Date().getFullYear()} Travel Explorer. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 };
 
 export default TripSuggestions;
+
+

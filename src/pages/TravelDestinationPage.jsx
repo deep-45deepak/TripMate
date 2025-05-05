@@ -13,8 +13,6 @@ const TravelDestinationPage = () => {
   const tripId = id;
   const selectedCity = city.split(",")[0].trim();
 
-  // console.log("City:", selectedCity);
-  // console.log("Trip ID:", tripId);
 
   async function getCoordinatesByCity(cityName) {
     const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}`;
@@ -39,7 +37,7 @@ const TravelDestinationPage = () => {
     const fetchCoordinates = async () => {
       const coordinates = await getCoordinatesByCity(selectedCity);
       if (coordinates) {
-        console.log("Coordinates:", coordinates.latitude, coordinates.longitude );
+        // console.log("Coordinates:", coordinates.latitude, coordinates.longitude );
         setCoordinates(coordinates);
       }
     };

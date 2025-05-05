@@ -1,4 +1,5 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import React from 'react'
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
@@ -19,7 +20,7 @@ const TripMapSection = ({ coor }) => {
   }
 
   const position = [coor.latitude, coor.longitude];
-  console.log(`Position is ${coor.latitude}, ${coor.longitude}`);
+  // console.log(`Position is ${coor.latitude}, ${coor.longitude}`);
 
   return (
     <section className="bg-white rounded-2xl shadow-xl p-6 flex flex-col justify-between">

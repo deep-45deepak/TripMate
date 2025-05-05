@@ -1,26 +1,40 @@
-import { useEffect, useState } from "react";
-import { FaMapMarkerAlt, FaStar, FaCalendarAlt, FaRupeeSign } from "react-icons/fa";
-import DomesticTrip from "../assets/DomesticTrip.json";
-import ForeignTrip from "../assets/ForeignTrip.json";
+import React, { useEffect, useState } from "react";
+import {
+  FaMapMarkerAlt,
+  FaStar,
+  FaCalendarAlt,
+  FaRupeeSign
+} from "react-icons/fa";
+import { useTrips } from "../context/TripsContext";
 
 const SelectedCard = ({ selectedId }) => {
+  const { domesticTrips, foreignTrips, loading } = useTrips();
   const [trip, setTrip] = useState(null);
 
   useEffect(() => {
     if (!selectedId) return;
 
-    const idStr = String(selectedId);
-    const isForeign = idStr.includes("F");
-    const trips = isForeign ? ForeignTrip : DomesticTrip;
+    const idStr = String(selectedId).trim();
+    const isForeign = idStr.includes("F") || idStr.includes("INT");
+    const trips = isForeign ? foreignTrips : domesticTrips;
 
     const selectedTrip = trips.find((trip) => String(trip.id) === idStr);
+    setTrip(selectedTrip || null);
+  }, [selectedId, domesticTrips, foreignTrips]);
 
-    if (selectedTrip) {
-      setTrip(selectedTrip);
-    }
-  }, [selectedId]);
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <div className="text-xl font-semibold text-gray-600 animate-pulse">
+            Loading trips...
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-  // Optional fallback content
   if (!trip) {
     return (
       <div className="max-w-sm p-6 rounded-3xl shadow-xl text-center bg-gray-100 text-gray-500">
@@ -33,12 +47,13 @@ const SelectedCard = ({ selectedId }) => {
     <div className="max-w-sm rounded-3xl overflow-hidden shadow-xl bg-gradient-to-r from-teal-500 to-blue-500 text-white p-6">
       <div className="relative">
         <img
-          src={trip.image}
+          src={trip.image || "/fallback-image.jpg"} // fallback if image is null
           alt={trip.name}
           className="h-48 w-full object-cover rounded-t-3xl"
         />
         <div className="absolute top-3 left-3 bg-black bg-opacity-50 text-white px-4 py-2 rounded-xl text-lg">
-          {trip.rating} <FaStar className="inline-block text-yellow-400 ml-1" />
+          {trip.rating}
+          <FaStar className="inline-block text-yellow-400 ml-1" />
         </div>
       </div>
 
@@ -62,3 +77,4 @@ const SelectedCard = ({ selectedId }) => {
 };
 
 export default SelectedCard;
+

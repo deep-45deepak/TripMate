@@ -1,3 +1,6 @@
+import React from 'react'
+
+
 const LottieAnimation = () => {
   const animationSpeed = -0.01; // Adjust this value to control the speed
 
