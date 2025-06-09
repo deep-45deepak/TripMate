@@ -14,7 +14,7 @@ import {
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import TopDestination from '../components/TopDestination';
-import SuggestionHeader from '../components/Suggestion.header';
+import SuggestionHeader from '../components/Suggestion.header'; // Fixed file name consistency
 import axios from 'axios';
 
 const TripSuggestions = () => {
@@ -23,26 +23,33 @@ const TripSuggestions = () => {
   // State management
   const [selectedDomesticId, setSelectedDomesticId] = useState(null);
   const [selectedForeignId, setSelectedForeignId] = useState(null);
-  const [city, setCity] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("domestic");
   const [domesticTrips, setDomesticTrips] = useState([]);
   const [foreignTrips, setForeignTrips] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Fetch trips data
   useEffect(() => {
     const fetchTrips = async () => {
       try {
         setLoading(true);
-        const domesticResponse = await axios.get('/preferences/domestic-trip');
-        const foreignResponse = await axios.get('/preferences/foreign-trip');
+        setError(null);
+        
+        const [domesticResponse, foreignResponse] = await Promise.all([
+          axios.get('/preferences/domestic-trip'),
+          axios.get('/preferences/foreign-trip')
+        ]);
 
-        // console.log(domesticResponse.data)
-        setDomesticTrips(domesticResponse.data);
-        setForeignTrips(foreignResponse.data);
-      } catch (error) {
-        console.error('Error fetching trips:', error);
+        // Validate responses
+        setDomesticTrips(Array.isArray(domesticResponse?.data) ? domesticResponse.data : []);
+        setForeignTrips(Array.isArray(foreignResponse?.data) ? foreignResponse.data : []);
+      } catch (err) {
+        console.error('Error fetching trips:', err);
+        setError('Failed to load trips. Please try again later.');
+        setDomesticTrips([]);
+        setForeignTrips([]);
       } finally {
         setLoading(false);
       }
@@ -53,11 +60,21 @@ const TripSuggestions = () => {
 
   // Filter trips based on search term
   const filteredTrips = useMemo(() => {
-    const trips = activeTab === "domestic" ? domesticTrips : foreignTrips;
-    return trips.filter(trip =>
-      trip.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      trip.location.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    try {
+      const trips = activeTab === "domestic" ? domesticTrips : foreignTrips;
+      if (!Array.isArray(trips)) return [];
+      
+      return trips.filter(trip => {
+        if (!trip || typeof trip !== 'object') return false;
+        return (
+          trip.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          trip.location?.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      });
+    } catch (err) {
+      console.error('Filter error:', err);
+      return [];
+    }
   }, [searchTerm, activeTab, domesticTrips, foreignTrips]);
 
   // Feature cards data
@@ -98,6 +115,23 @@ const TripSuggestions = () => {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <RingLoader />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center p-8 bg-white rounded-lg shadow-lg">
+          <h2 className="text-2xl font-bold text-red-500 mb-4">Error</h2>
+          <p className="text-gray-700 mb-6">{error}</p>
+          <button 
+            onClick={() => window.location.reload()}
+            className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full"
+          >
+            Retry
+          </button>
+        </div>
       </div>
     );
   }
@@ -219,48 +253,57 @@ const TripSuggestions = () => {
             {filteredTrips.length > 0 ? (
               filteredTrips.slice(0, 6).map((trip) => (
                 <motion.div
-                  key={trip.id}
+                  key={trip?.id || Math.random().toString(36).substring(2, 9)}
                   layout
                   initial="hidden"
                   animate="visible"
                   exit="hidden"
                   variants={cardVariants}
                   whileHover={{ y: -5 }}
-                  className={`rounded-xl overflow-hidden shadow-lg cursor-pointer transition-all duration-300 bg-white ${(activeTab === "domestic" ? selectedDomesticId === trip.id : selectedForeignId === trip.id)
+                  className={`rounded-xl overflow-hidden shadow-lg cursor-pointer transition-all duration-300 bg-white ${(activeTab === "domestic" ? selectedDomesticId === trip?.id : selectedForeignId === trip?.id)
                     ? "ring-4 ring-blue-500"
                     : ""
                     }`}
                   onClick={() => {
-                    const city = activeTab === "domestic" ? trip.location : trip.location.split(",")[0].trim();
-                    navigate(`/trip-details/${trip.id}/${city}`);
+                    if (!trip?.id) return;
+                    const city = activeTab === "domestic" 
+                      ? trip?.location 
+                      : trip?.location?.split(",")[0]?.trim();
+                    navigate(`/trip-details/${trip.id}/${city || 'unknown'}`);
                   }}
                 >
                   <div className="relative h-60 overflow-hidden">
                     <img
-                      src={trip.image}
-                      alt={trip.name}
+                      src={trip?.image || 'https://via.placeholder.com/400x300'}
+                      alt={trip?.name || 'Trip image'}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                      onError={(e) => {
+                        e.target.src = 'https://via.placeholder.com/400x300';
+                      }}
                     />
                     <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-3 py-1 rounded-full text-sm flex items-center">
                       <FaStar className="text-yellow-400 mr-1" />
-                      {trip.rating}
+                      {trip?.rating || 'N/A'}
                     </div>
                   </div>
 
                   <div className="p-6 space-y-3">
-                    <h3 className="text-xl font-bold text-gray-800">{trip.name}</h3>
+                    <h3 className="text-xl font-bold text-gray-800">{trip?.name || 'Unnamed Trip'}</h3>
                     <div className="flex items-center text-gray-600">
                       <FaMapMarkerAlt className="text-red-500 mr-2" />
-                      <span>{activeTab === "domestic" ? trip.location : trip.location.split(",")[0].trim()}</span>
+                      <span>{activeTab === "domestic" 
+                        ? trip?.location 
+                        : trip?.location?.split(",")[0]?.trim() || 'Unknown location'}
+                      </span>
                     </div>
                     <div className="flex justify-between text-gray-700 pt-2 border-t border-gray-100">
                       <span className="flex items-center">
                         <FaCalendarAlt className="mr-2 text-blue-500" />
-                        {trip.days} Days
+                        {trip?.days || 'N/A'} Days
                       </span>
                       <span className="flex items-center font-semibold">
                         <FaRupeeSign className="mr-1 text-green-600" />
-                        {trip.price}
+                        {trip?.price || 'N/A'}
                       </span>
                     </div>
                   </div>
