@@ -12,7 +12,6 @@ import {
   FaWallet,
   FaCompass
 } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
 import TopDestination from '../components/TopDestination';
 import SuggestionHeader from '../components/Suggestion.header';
 import axios from 'axios';
@@ -80,16 +79,6 @@ const TripSuggestions = () => {
     }
   ];
 
-  // Animation variants
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 }
-    }
-  };
-
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -110,30 +99,15 @@ const TripSuggestions = () => {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight"
-          >
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight animate-fade-in">
             Millions Of Experiences. <br /> One Simple Search.
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="text-xl text-blue-100 max-w-2xl mx-auto mb-10"
-          >
+          <p className="text-xl text-blue-100 max-w-2xl mx-auto mb-10 animate-fade-in animate-delay-100">
             Find and book your next happy adventure anywhere in the world.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto"
-          >
+          <div className="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto animate-fade-in animate-delay-200">
             <div className="relative flex-grow">
               <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
@@ -147,7 +121,7 @@ const TripSuggestions = () => {
             <button className="bg-gradient-to-r from-teal-400 to-blue-500 hover:from-teal-500 hover:to-blue-600 text-white font-semibold px-8 py-3 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl">
               Search
             </button>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -155,20 +129,15 @@ const TripSuggestions = () => {
       <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
-            <motion.div
+            <div
               key={index}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={cardVariants}
-              transition={{ delay: index * 0.1 }}
-              className={`bg-gradient-to-r ${feature.bg} p-6 rounded-xl text-white shadow-lg`}
+              className={`bg-gradient-to-r ${feature.bg} p-6 rounded-xl text-white shadow-lg transition-transform duration-300 hover:scale-105`}
             >
               <div className="text-center">
                 {feature.icon}
                 <h3 className="text-xl font-semibold">{feature.title}</h3>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
@@ -194,12 +163,7 @@ const TripSuggestions = () => {
         </div>
 
         {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
+        <div className="text-center mb-12 animate-fade-in">
           <h2 className="text-3xl font-bold text-gray-800 relative inline-block">
             {activeTab === "domestic" ? "Domestic" : "Foreign"} Suggestions
             <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-teal-400 rounded-full mt-2"></span>
@@ -207,74 +171,62 @@ const TripSuggestions = () => {
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
             Discover our handpicked {activeTab === "domestic" ? "domestic" : "international"} travel experiences
           </p>
-        </motion.div>
+        </div>
 
         {/* Trip Cards */}
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          <AnimatePresence>
-            {filteredTrips.length > 0 ? (
-              filteredTrips.slice(0, 6).map((trip) => (
-                <motion.div
-                  key={trip.id}
-                  layout
-                  initial="hidden"
-                  animate="visible"
-                  exit="hidden"
-                  variants={cardVariants}
-                  whileHover={{ y: -5 }}
-                  className="rounded-xl overflow-hidden shadow-lg cursor-pointer transition-all duration-300 bg-white"
-                  onClick={() => {
-                    const city = activeTab === "domestic" ? trip.location : trip.location.split(",")[0].trim();
-                    navigate(`/trip-details/${trip.id}/${city}`);
-                  }}
-                >
-                  <div className="relative h-60 overflow-hidden">
-                    <img
-                      src={trip.image}
-                      alt={trip.name}
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                    />
-                    <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-3 py-1 rounded-full text-sm flex items-center">
-                      <FaStar className="text-yellow-400 mr-1" />
-                      {trip.rating}
-                    </div>
-                  </div>
-
-                  <div className="p-6 space-y-3">
-                    <h3 className="text-xl font-bold text-gray-800">{trip.name}</h3>
-                    <div className="flex items-center text-gray-600">
-                      <FaMapMarkerAlt className="text-red-500 mr-2" />
-                      <span>{activeTab === "domestic" ? trip.location : trip.location.split(",")[0].trim()}</span>
-                    </div>
-                    <div className="flex justify-between text-gray-700 pt-2 border-t border-gray-100">
-                      <span className="flex items-center">
-                        <FaCalendarAlt className="mr-2 text-blue-500" />
-                        {trip.days} Days
-                      </span>
-                      <span className="flex items-center font-semibold">
-                        <FaRupeeSign className="mr-1 text-green-600" />
-                        {trip.price}
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
-              ))
-            ) : (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="col-span-full text-center py-12"
+          {filteredTrips.length > 0 ? (
+            filteredTrips.slice(0, 6).map((trip) => (
+              <div
+                key={trip.id}
+                className="rounded-xl overflow-hidden shadow-lg cursor-pointer transition-all duration-300 bg-white hover:-translate-y-1 hover:shadow-xl"
+                onClick={() => {
+                  const city = activeTab === "domestic" ? trip.location : trip.location.split(",")[0].trim();
+                  navigate(`/trip-details/${trip.id}/${city}`);
+                }}
               >
-                <div className="text-6xl mb-4">😢</div>
-                <h3 className="text-xl font-medium text-gray-600 mb-2">
-                  No {activeTab === "domestic" ? "Domestic" : "Foreign"} Trips found
-                </h3>
-                <p className="text-gray-500">
-                  Try adjusting your search or check back later for new adventures!
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                <div className="relative h-60 overflow-hidden">
+                  <img
+                    src={trip.image}
+                    alt={trip.name}
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                  />
+                  <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-3 py-1 rounded-full text-sm flex items-center">
+                    <FaStar className="text-yellow-400 mr-1" />
+                    {trip.rating}
+                  </div>
+                </div>
+
+                <div className="p-6 space-y-3">
+                  <h3 className="text-xl font-bold text-gray-800">{trip.name}</h3>
+                  <div className="flex items-center text-gray-600">
+                    <FaMapMarkerAlt className="text-red-500 mr-2" />
+                    <span>{activeTab === "domestic" ? trip.location : trip.location.split(",")[0].trim()}</span>
+                  </div>
+                  <div className="flex justify-between text-gray-700 pt-2 border-t border-gray-100">
+                    <span className="flex items-center">
+                      <FaCalendarAlt className="mr-2 text-blue-500" />
+                      {trip.days} Days
+                    </span>
+                    <span className="flex items-center font-semibold">
+                      <FaRupeeSign className="mr-1 text-green-600" />
+                      {trip.price}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="col-span-full text-center py-12 animate-fade-in">
+              <div className="text-6xl mb-4">😢</div>
+              <h3 className="text-xl font-medium text-gray-600 mb-2">
+                No {activeTab === "domestic" ? "Domestic" : "Foreign"} Trips found
+              </h3>
+              <p className="text-gray-500">
+                Try adjusting your search or check back later for new adventures!
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
@@ -288,6 +240,23 @@ const TripSuggestions = () => {
           <p className="text-blue-200">© {new Date().getFullYear()} Travel Explorer. All rights reserved.</p>
         </div>
       </footer>
+
+      {/* Add these CSS animations to your global CSS file */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.8s ease-out forwards;
+        }
+        .animate-delay-100 {
+          animation-delay: 0.1s;
+        }
+        .animate-delay-200 {
+          animation-delay: 0.2s;
+        }
+      `}</style>
     </div>
   );
 };
