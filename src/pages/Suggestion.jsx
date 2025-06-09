@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import RingLoader from '../components/RingLoader';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -21,9 +21,6 @@ const TripSuggestions = () => {
   const navigate = useNavigate();
 
   // State management
-  const [selectedDomesticId, setSelectedDomesticId] = useState(null);
-  const [selectedForeignId, setSelectedForeignId] = useState(null);
-  const [city, setCity] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("domestic");
   const [domesticTrips, setDomesticTrips] = useState([]);
@@ -38,9 +35,8 @@ const TripSuggestions = () => {
         const domesticResponse = await axios.get('/preferences/domestic-trip');
         const foreignResponse = await axios.get('/preferences/foreign-trip');
 
-        // console.log(domesticResponse.data)
-        setDomesticTrips(domesticResponse.data.sort(() => 0.5 - Math.random()));
-        setForeignTrips(foreignResponse.data.sort(() => 0.5 - Math.random()));
+        setDomesticTrips(domesticResponse.data);
+        setForeignTrips(foreignResponse.data);
       } catch (error) {
         console.error('Error fetching trips:', error);
       } finally {
@@ -52,13 +48,13 @@ const TripSuggestions = () => {
   }, []);
 
   // Filter trips based on search term
-  const filteredTrips = useMemo(() => {
-    const trips = activeTab === "domestic" ? domesticTrips : foreignTrips;
-    return trips.filter(trip =>
-      trip.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      trip.location.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [searchTerm, activeTab, domesticTrips, foreignTrips]);
+  const filteredTrips = activeTab === "domestic" 
+    ? domesticTrips.filter(trip =>
+        trip.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        trip.location.toLowerCase().includes(searchTerm.toLowerCase()))
+    : foreignTrips.filter(trip =>
+        trip.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        trip.location.toLowerCase().includes(searchTerm.toLowerCase()));
 
   // Feature cards data
   const features = [
@@ -226,10 +222,7 @@ const TripSuggestions = () => {
                   exit="hidden"
                   variants={cardVariants}
                   whileHover={{ y: -5 }}
-                  className={`rounded-xl overflow-hidden shadow-lg cursor-pointer transition-all duration-300 bg-white ${(activeTab === "domestic" ? selectedDomesticId === trip.id : selectedForeignId === trip.id)
-                    ? "ring-4 ring-blue-500"
-                    : ""
-                    }`}
+                  className="rounded-xl overflow-hidden shadow-lg cursor-pointer transition-all duration-300 bg-white"
                   onClick={() => {
                     const city = activeTab === "domestic" ? trip.location : trip.location.split(",")[0].trim();
                     navigate(`/trip-details/${trip.id}/${city}`);
