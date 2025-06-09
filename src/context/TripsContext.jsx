@@ -15,8 +15,8 @@ export const TripsProvider = ({ children }) => {
       const domesticResponse = await axios.get('/preferences/domestic-trip');
       const foreignResponse = await axios.get('/preferences/foreign-trip');
 
-      setDomesticTrips(domesticResponse.data.sort(() => 0.5 - Math.random()));
-      setForeignTrips(foreignResponse.data.sort(() => 0.5 - Math.random()));
+      setDomesticTrips(domesticResponse.data);
+      setForeignTrips(foreignResponse.data);
     } catch (error) {
       console.error('Error fetching trips: context', error);
     } finally {

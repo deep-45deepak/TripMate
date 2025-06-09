@@ -24,7 +24,7 @@ const TravelDestinationPage = () => {
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
       transition: { staggerChildren: 0.1 }
     }
@@ -386,7 +386,7 @@ const TravelDestinationPage = () => {
             {/* Row 2: Trip Planning Essentials */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Currency Converter - Important for budgeting */}
-              <motion.div 
+              <motion.div
                 variants={itemVariants}
                 className="bg-white rounded-xl shadow-lg p-6 border border-gray-100"
               >
@@ -437,8 +437,8 @@ const TravelDestinationPage = () => {
                     { name: "Women's Helpline", number: "1091", icon: "👩" },
                     { name: "Child Helpline", number: "1098", icon: "🧒" }
                   ].map((contact, index) => (
-                    <motion.div 
-                      key={index} 
+                    <motion.div
+                      key={index}
                       whileHover={{ y: -2 }}
                       className="p-3 bg-gray-50 rounded-lg hover:bg-red-50 transition flex items-center"
                     >
