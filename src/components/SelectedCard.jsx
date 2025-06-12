@@ -8,11 +8,9 @@ import {
 import { useTrips } from "../context/TripsContext";
 
 const SelectedCard = ({ selectedId, city }) => {
-  const { domesticTrips = [], foreignTrips = [] } = useTrips();
-
-  // Combine all trips and find the selected one
-  const allTrips = [...domesticTrips, ...foreignTrips];
-  const selectedTrip = allTrips.find(trip => trip.id === selectedId);
+  const { recommendations = [] } = useTrips();
+  const selectedTrip = recommendations.find(trip => trip.id === selectedId);
+  // console.log("Selected Trip:", selectedTrip);
 
   if (!selectedTrip) {
     return (

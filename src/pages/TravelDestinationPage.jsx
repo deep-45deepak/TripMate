@@ -7,7 +7,7 @@ import WeatherForecast from "../components/WeatherForecast";
 import TripMapSection from "../components/TripMapSection";
 import HealthFacilities from "../components/HealthFacilities";
 import RingLoader from '../components/RingLoader';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
 
 const TravelDestinationPage = () => {
@@ -40,18 +40,24 @@ const TravelDestinationPage = () => {
   };
 
   async function getCoordinatesByCity(cityName) {
+
     const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}`;
+
 
     try {
       const response = await fetch(url);
-      if (!response.ok) throw new Error('Failed to fetch coordinates');
+      if (!response.ok) {
+        // Attempt to read error message from response if available
+        const errorText = await response.text();
+        throw new Error(`Failed to fetch coordinates: ${response.status} ${response.statusText} - ${errorText.substring(0, 100)}...`);
+      }
       const data = await response.json();
 
       if (data?.results?.length > 0) {
         const { latitude, longitude, timezone, country } = data.results[0];
         return { latitude, longitude, timezone, country };
       } else {
-        throw new Error("City not found.");
+        throw new Error("City not found or no results returned.");
       }
     } catch (error) {
       console.error("Error fetching coordinates:", error.message);
@@ -61,14 +67,29 @@ const TravelDestinationPage = () => {
   }
 
   async function fetchCurrencyRates() {
+    // Check if the environment variable is defined
+    if (!import.meta.env.VITE_CURRENCY_API_URL) {
+      console.warn("VITE_CURRENCY_API_URL is not defined. Using fallback currency rates.");
+      setCurrencyData({
+        INR: 83.25,
+        EUR: 0.92,
+        GBP: 0.79,
+        JPY: 151.47
+      });
+      return;
+    }
+
     try {
-      // In a real app, use a proper currency API with API key
-      const response = await fetch(`https://api.exchangerate-api.com/v4/latest/USD`);
-      if (!response.ok) throw new Error('Currency data unavailable');
+      const response = await fetch(import.meta.env.VITE_CURRENCY_API_URL);
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Currency data unavailable: ${response.status} ${response.statusText} - ${errorText.substring(0, 100)}...`);
+      }
       const data = await response.json();
       setCurrencyData(data.rates);
     } catch (err) {
       console.error("Error fetching currency:", err);
+      setError(`Currency error: ${err.message}`);
       // Fallback to hardcoded rates if API fails
       setCurrencyData({
         INR: 83.25,
@@ -80,10 +101,9 @@ const TravelDestinationPage = () => {
   }
 
   useEffect(() => {
-    // Simulate fetching trip data - replace with your actual API call
-    const fetchTripData = async () => {
+    const loadPageData = async () => {
       try {
-        // Mock data for demonstration
+        // Fetch trip data
         const mockTripData = {
           id: tripId,
           name: selectedCity,
@@ -92,11 +112,6 @@ const TravelDestinationPage = () => {
           price: 25000,
           days: 7,
           rating: 4.7,
-          images: [
-            `https://source.unsplash.com/random/800x600/?${selectedCity},city`,
-            `https://source.unsplash.com/random/800x600/?${selectedCity},landmark`,
-            `https://source.unsplash.com/random/800x600/?${selectedCity},tourist`
-          ],
           destinationType: tripId.length > 10 ? "foreign" : "domestic",
           itinerary: [
             `Day 1: Arrival in ${selectedCity} and hotel check-in`,
@@ -115,38 +130,27 @@ const TravelDestinationPage = () => {
             "Shopping districts"
           ]
         };
-        
         setTripData(mockTripData);
-      } catch (error) {
-        console.error("Error fetching trip data:", error);
-        setError('Failed to load trip details');
+
+        // Fetch currency rates
+        await fetchCurrencyRates();
+
+        // Fetch coordinates
+        const coords = await getCoordinatesByCity(selectedCity);
+        if (coords) {
+          setCoordinates(coords);
+        }
+
+      } catch (err) {
+        console.error("Error loading page data:", err);
+        setError(`An error occurred: ${err.message}`);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchTripData();
-    fetchCurrencyRates();
-  }, [tripId, selectedCity]);
-
-  useEffect(() => {
-    const fetchCoordinates = async () => {
-      const coords = await getCoordinatesByCity(selectedCity);
-      if (coords) {
-        setCoordinates(coords);
-      }
-    };
-
-    if (selectedCity) {
-      fetchCoordinates();
-    }
-  }, [selectedCity]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1500);
-
-    return () => clearTimeout(timer);
-  }, []);
+    loadPageData();
+  }, [tripId, selectedCity]); // Dependencies for useEffect
 
   const handlePlanSelect = (planIndex) => {
     setSelectedPlan(planIndex);
@@ -162,13 +166,13 @@ const TravelDestinationPage = () => {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="text-center p-6 max-w-md bg-white rounded-lg shadow-lg">
           <div className="text-red-500 text-5xl mb-4">⚠️</div>
           <h2 className="text-xl font-bold mb-2">Error Loading Page</h2>
           <p className="text-gray-600 mb-4">{error}</p>
-          <button 
-            onClick={() => window.location.reload()} 
+          <button
+            onClick={() => window.location.reload()}
             className="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 transition"
           >
             Try Again
@@ -191,7 +195,7 @@ const TravelDestinationPage = () => {
       </div>
 
       {/* Hero + Selected Destination */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -206,18 +210,18 @@ const TravelDestinationPage = () => {
               Everything you need to plan your perfect trip to {selectedCity}
             </p>
           </div>
-          <motion.div 
+          <motion.div
             whileHover={{ scale: 1.02 }}
             className="flex align-center justify-center w-full"
           >
-            <SelectedCard selectedId={tripId} city={city} tripData={tripData} />
+            <SelectedCard selectedId={tripId} city={city} />
           </motion.div>
         </div>
       </motion.div>
 
       {/* Main Dashboard - Prioritized Grid Layout */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-10">
-        <motion.div 
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -226,7 +230,7 @@ const TravelDestinationPage = () => {
           {/* ----- Left Column (Trip Planning) ----- */}
           <div className="lg:col-span-4 space-y-6 order-2 lg:order-1">
             {/* Trip Packages - Primary CTA */}
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               className="bg-white rounded-xl shadow-lg p-6 sticky top-6 border border-gray-100"
             >
@@ -236,19 +240,19 @@ const TravelDestinationPage = () => {
                 </svg>
                 Plan Your Trip
               </h2>
-              
+
               <div className="space-y-4 mb-6">
                 {[
                   { name: "Budget", price: 120, features: ["Hostels", "Public transport", "Free walking tours"] },
                   { name: "Comfort", price: 350, features: ["3-star hotels", "Guided tours", "Some meals included"] },
                   { name: "Luxury", price: 890, features: ["5-star hotels", "Private transfers", "All meals & activities"] }
                 ].map((plan, index) => (
-                  <motion.div 
-                    key={index} 
+                  <motion.div
+                    key={index}
                     whileHover={{ scale: 1.01 }}
                     className={`border rounded-lg p-4 transition-all cursor-pointer ${
-                      selectedPlan === index 
-                        ? "border-teal-300 bg-teal-50 scale-[1.02] shadow-sm ring-2 ring-teal-200" 
+                      selectedPlan === index
+                        ? "border-teal-300 bg-teal-50 scale-[1.02] shadow-sm ring-2 ring-teal-200"
                         : "border-gray-200 hover:border-teal-200"
                     }`}
                     onClick={() => handlePlanSelect(index)}
@@ -268,8 +272,8 @@ const TravelDestinationPage = () => {
                       ))}
                     </ul>
                     <button className={`w-full py-2 rounded-md text-sm font-medium transition ${
-                      selectedPlan === index 
-                        ? "bg-teal-600 text-white hover:bg-teal-700 shadow-md" 
+                      selectedPlan === index
+                        ? "bg-teal-600 text-white hover:bg-teal-700 shadow-md"
                         : "text-teal-600 border border-teal-600 hover:bg-teal-50"
                     }`}>
                       {selectedPlan === index ? "Selected Plan" : "Select Plan"}
@@ -278,7 +282,7 @@ const TravelDestinationPage = () => {
                 ))}
               </div>
 
-              <motion.button 
+              <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="w-full bg-gradient-to-r from-teal-500 to-blue-500 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-all shadow-md"
@@ -304,7 +308,7 @@ const TravelDestinationPage = () => {
             </motion.div>
 
             {/* Travel Tips - Secondary helpful info */}
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               className="bg-white rounded-xl shadow-lg p-6 border border-gray-100"
             >
@@ -351,7 +355,7 @@ const TravelDestinationPage = () => {
             {/* Row 1: Immediate Needs (Weather + Alerts) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Weather Card - Top priority for travelers */}
-              <motion.div 
+              <motion.div
                 variants={itemVariants}
                 className="bg-white rounded-xl shadow-lg p-6 md:col-span-1 border border-gray-100"
               >
@@ -369,7 +373,7 @@ const TravelDestinationPage = () => {
               </motion.div>
 
               {/* Health Alerts - Critical info */}
-              <motion.div 
+              <motion.div
                 variants={itemVariants}
                 className="bg-white rounded-xl shadow-lg p-6 h-[32rem] overflow-hidden border border-gray-100"
               >
@@ -407,7 +411,8 @@ const TravelDestinationPage = () => {
                       <div key={code} className="flex justify-between items-center p-2 bg-gray-50 rounded hover:bg-teal-50 transition">
                         <span>{name}</span>
                         <span className="font-bold text-teal-600">
-                          {currencyData[code] ? `₹${(currencyData.INR / currencyData[code]).toFixed(2)}` : 'N/A'}
+                          {/* Ensure currencyData.INR exists before using it for conversion */}
+                          {currencyData.INR && currencyData[code] ? `₹${(currencyData.INR / currencyData[code]).toFixed(2)}` : 'N/A'}
                         </span>
                       </div>
                     ))}
@@ -418,7 +423,7 @@ const TravelDestinationPage = () => {
               </motion.div>
 
               {/* Emergency Contacts - Vital information */}
-              <motion.div 
+              <motion.div
                 variants={itemVariants}
                 className="bg-white rounded-xl shadow-lg p-6 md:col-span-2 border border-gray-100"
               >
@@ -456,7 +461,7 @@ const TravelDestinationPage = () => {
             </div>
 
             {/* Row 3: Main Map - Location context */}
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100"
             >
@@ -480,7 +485,7 @@ const TravelDestinationPage = () => {
 
             {/* Itinerary Section */}
             {tripData?.itinerary && (
-              <motion.div 
+              <motion.div
                 variants={itemVariants}
                 className="bg-white rounded-xl shadow-lg p-6 border border-gray-100"
               >
@@ -513,7 +518,7 @@ const TravelDestinationPage = () => {
         </motion.div>
 
         {/* Top Destinations - At bottom as discovery section */}
-        <motion.section 
+        <motion.section
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}

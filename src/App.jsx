@@ -8,22 +8,26 @@ import Suggestion from './pages/Suggestion'
 import Destination from './pages/TravelDestinationPage';
 import ContactMe from "./components/ContactMe";
 import Error from './pages/NotFound';
-import { TripsProvider } from './context/TripsContext'; 
+import { TripsProvider } from './context/TripsContext';
+import { TripFormProvider } from './context/TripFormContext';
+
 
 function App() {
   return (
-    <TripsProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/signup" element={<AuthForm />} />
-          <Route path="/suggest" element={<Suggestion />} />
-          <Route path="/contact" element={<ContactMe />} />
-          <Route path="/trip-details/:id/:location" element={<Destination />} />
-          <Route path="*" element={<Error />} /> {/* This handles 404 errors */}
-        </Routes>
-      </Router>
-    </TripsProvider>
+    <TripFormProvider>
+      <TripsProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/signup" element={<AuthForm />} />
+            <Route path="/suggest" element={<Suggestion />} />
+            <Route path="/contact" element={<ContactMe />} />
+            <Route path="/trip-details/:id/:location" element={<Destination />} />
+            <Route path="*" element={<Error />} /> {/* This handles 404 errors */}
+          </Routes>
+        </Router>
+      </TripsProvider>
+    </TripFormProvider>
   );
 }
 

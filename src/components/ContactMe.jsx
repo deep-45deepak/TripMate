@@ -35,14 +35,15 @@ const ContactMe = () => {
                     </div>
                     <div className="flex align-left flex-col gap-3">
                         <div className="flex items-center gap-3">
-                        <FaEnvelope className="text-teal-500" />
-                        <span>contact@travelmate.com</span>
+                            <FaEnvelope className="text-teal-500" />
+                            <span>contact@travelmate.com</span>
                         </div>
-                        <img
-                            src="../../public/App.png"
-                            alt="Contact Us"
-                            className="w-32 h-32 mt-4 mx-auto"
-                        />
+                        {/* Logo */}
+                        <div className="flex items-center gap-2 m-10">
+                            <span className="font-extrabold text-xl bg-gradient-to-r from-teal-500 via-blue-400 to-pink-500 text-transparent bg-clip-text tracking-wide">
+                                TripMate
+                            </span>
+                        </div>
                     </div>
                 </div>
 

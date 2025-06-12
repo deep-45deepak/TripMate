@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Popup from '../components/Popup';
 
 const images = [
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-Hhw6Z4SH93Al6wtLuOL8j2MigZ7DVtSgdQ&s',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMvlwvvOAqmFcjpUf3EvL_K84vfwHwZUGsYg&s',
-  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8nnBNZWgDOqF0rBqB0kyQnmRHaA7jSsSITA&s',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQl3SPCrd4Jg5b0XjXzbF5K67KDjXPXYKZjTA&s',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9wWl10Dfq2IXs9U-Xmi3KDrV52clg62GJhw&s'
+  'https://images.pexels.com/photos/356860/pexels-photo-356860.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', // Italian Coast/Village (e.g., Cinque Terre vibe)
+  'https://images.pexels.com/photos/10330954/pexels-photo-10330954.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', // Tropical beach with palm trees
+  'https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', // Mountain lake scenery (e.g., Dolomites)
+  'https://images.pexels.com/photos/15862590/pexels-photo-15862590.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', // Desert landscape with dunes
+  'https://images.pexels.com/photos/10006764/pexels-photo-10006764.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', // bustling Cityscape at night (e.g., New York, Tokyo)
+  'https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', // Ancient ruins/historical site (e.g., Rome, Greece)
+  'https://images.pexels.com/photos/2544284/pexels-photo-2544284.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', // Snowy landscape / Winter destination
+  'https://images.pexels.com/photos/1098522/pexels-photo-1098522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'  // Waterfall in lush forest
 ];
 
 const HeroSection = () => {

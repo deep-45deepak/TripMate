@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTripForm } from '../context/TripFormContext';
 import Animation from './Lotify';
 
 const TripPlanningForm = () => {
   const navigate = useNavigate();
+  const { setTripFormData } = useTripForm();
+
   const [currency, setCurrency] = useState("INR");
   const [formData, setFormData] = useState({
     destinationType: "Domestic",
@@ -15,7 +18,7 @@ const TripPlanningForm = () => {
 
   const handleDestinationChange = (e) => {
     const value = e.target.value;
-    setCurrency(value === "International" ? "$" : "INR");
+    setCurrency(value === "International" ? "USD" : "INR");
     setFormData({ ...formData, destinationType: value });
   };
 
@@ -26,27 +29,26 @@ const TripPlanningForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    // Check if any field is empty
-    const isIncomplete = Object.values(formData).some(val => val === "");
-    if (isIncomplete) {
-      alert("Please fill out all fields before continuing.");
-      return;
-    }
+  const isIncomplete = Object.values(formData).some(val => val === "");
+  if (isIncomplete) {
+    alert("Please fill out all fields before continuing.");
+    return;
+  }
 
-    // Navigate only if the form is completely filled
-    navigate("/suggest");
-  };
+  // Just store the form data, TripsContext will handle the API call
+  setTripFormData({ formInput: formData });
+
+  navigate("/suggest");
+};
+
 
   return (
     <div id="recommendation" className="w-auto ml-2 mr-2 mx-auto grid md:grid-cols-2 gap-6 bg-white shadow-lg rounded-xl p-6 animate-fadeIn md:mt-8 md:mb-10">
-
-      {/* Left Section: Lottie Animation */}
       <Animation />
 
-      {/* Right Section */}
       <div className="md:order-2 md:border-l-2 border-gray-300 md:p-20">
         <div className="flex justify-between items-center m-5">
           <h1 className="text-xl font-bold text-teal-600">Trip Planner</h1>
@@ -89,7 +91,7 @@ const TripPlanningForm = () => {
               value={formData.healthCondition}
               onChange={handleChange}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-400"
-              placeholder="Enter any health considerations"
+              placeholder="Enter any health considerations like good average, bad, etc."
             />
           </label>
 
@@ -130,5 +132,6 @@ const TripPlanningForm = () => {
     </div>
   );
 };
+
 
 export default TripPlanningForm;
